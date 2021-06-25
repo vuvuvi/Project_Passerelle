@@ -5,18 +5,34 @@ using UnityEngine;
 public class ObjectMovement : MonoBehaviour
 {
 
-    public float speed;
-
-    public Vector3 direction;
 
 
     public enum MovementType
     {
         Rotation,
         Translation
+
     }
 
-    public MovementType movementType;
+
+
+
+
+    [System.Serializable]
+    public struct Movement
+    {
+
+        public MovementType type;
+        public float speed;
+        public Vector3 direction;
+        public Space space;
+        
+    }
+
+    public Movement mov;
+  
+
+    public List<Movement> movements;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +43,17 @@ public class ObjectMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (movementType == MovementType.Rotation)
+        foreach (Movement mov in movements)
         {
-            transform.Rotate(direction * speed * Time.deltaTime, Space.World);
-        } else if (movementType == MovementType.Translation)
-        {
-            transform.Translate(direction * speed * Time.deltaTime, Space.World);
+            
+            if (mov.type == MovementType.Rotation)
+            {
+                transform.Rotate(mov.direction.normalized * mov.speed * Time.deltaTime, mov.space);
+            } else if (mov.type == MovementType.Translation)
+            {
+                transform.Translate(mov.direction.normalized * mov.speed * Time.deltaTime, mov.space);
+            }
+
         }
     }
 }
