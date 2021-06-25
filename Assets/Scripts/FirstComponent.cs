@@ -13,6 +13,14 @@ public class FirstComponent : MonoBehaviour
 
     public Vector3 rotationAxis;
 
+    public string myString;
+
+    public char[] myArray;
+
+    public List<int> myList;
+
+    public ObjectMovement.MovementType type; 
+
     // Start is called before the first frame update
     void Start()
     {
